@@ -1,6 +1,6 @@
 
 ```
-Modified Baileys @daffadevv
+Modified Baileys @FadelSM
 ```
 
 # WhatsApp Baileys 
@@ -48,7 +48,7 @@ thumbnail: await (await fetch("URL IMG")).buffer(),
 itemCount: 1000,
 status: "INQUIRY",
 surface: "CATALOG",
-message: "dfa kimochi",
+message: "fdk kimochi",
 orderTitle: "kyah",
 sellerJid: "0@s.whatsapp.net",
 token: Buffer.from("777777"),
@@ -70,8 +70,8 @@ name: "review_and_pay",
 buttonParamsJson: JSON.stringify({
 currency: "IDR",
 total_amount: { value: 100, offset: 100 },
-reference_id: "DAFFA-DEV",
-type: "daffa",
+reference_id: "FADEL-DEV",
+type: "fadel",
 payment_status: "ganteng",
 payment_timestamp: Date.now(),
 order: {
@@ -87,7 +87,7 @@ quantity: 1
 }
 ]
 },
-additional_note: "daffa gntng bet jir",
+additional_note: "fadel gntng bet jir",
 native_payment_methods: "",
 share_payment_status: true
 })
@@ -177,13 +177,13 @@ await client.sendMessage(m.chat, {
 eventMessage: {
 isCanceled: false,
 name: "Hello World",
-description: "ravage native",
+description: "psycho native",
 location: {
 degreesLatitude: 0,
 degreesLongitude: 0,
 name: "rowrrrr"
 },
-joinLink: "https://call.whatsapp.com/video/daffadevv",
+joinLink: "https://call.whatsapp.com/video/fadeldevv",
 startTime: "1763019000",
 endTime: "1763026200",
 extraGuestsAllowed: false
@@ -220,7 +220,7 @@ await client.sendMessage(m.chat, {
 interactiveMessage: {
 header: "Hello World",
 title: "Hello World",
-footer: "telegram: @daffadevv ",
+footer: "telegram: @FADELSM ",
 buttons: [
 {
 name: "cta_copy",
@@ -243,26 +243,26 @@ await client.sendMessage(m.chat, {
 interactiveMessage: {
 header: "Hello World",
 title: "Hello World",
-footer: "telegram: @daffadevv",
+footer: "telegram: @FADELSM",
 image: { url: "https://example.com/image.jpg" },
 nativeFlowMessage: {
 messageParamsJson: JSON.stringify({
 limited_time_offer: {
 text: "idk hummmm?",
-url: "https://t.me/daffadevv",
-copy_code: "ravage",
+url: "https://t.me/FADELSM",
+copy_code: "psycho",
 expiration_time: Date.now() * 999
 },
 bottom_sheet: {
 in_thread_buttons_limit: 2,
 divider_indices: [1, 2, 3, 4, 5, 999],
-list_title: "ravage native",
-button_title: "ravage native"
+list_title: "psycho native",
+button_title: "psycho native"
 },
 tap_target_configuration: {
 title: " X ",
 description: "bomboclard",
-canonical_url: "https://t.me/daffadevv",
+canonical_url: "https://t.me/FADELSM",
 domain: "shop.example.com",
 button_index: 0
 }
@@ -290,7 +290,7 @@ title: "title",
 highlight_label: "label",
 rows: [
 {
-title: "@daffadevv",
+title: "@FADELSM",
 description: "love you",
 id: "row_2"
 }
