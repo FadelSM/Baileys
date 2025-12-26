@@ -12,9 +12,9 @@
         "botwa",
         "fadelsm"
     ],
-    "homepage": "https://www.npmjs.com/package/@fadeldeveloper/Baileys",
+    "homepage": "https://www.npmjs.com/package/@FadelSM/Baileys",
     "repository": {
-        "url": "https://www.npmjs.com/package/@fadeldeveloper/Baileys"
+        "url": "https://www.npmjs.com/package/@FadelSM/Baileys"
     },
     "license": "MIT",
     "author": "FadelSM",
@@ -62,7 +62,7 @@
         "ws": "^8.13.0"
     },
     "devDependencies": {
-        "@adiwajshing/eslint-config": "github:adiwajshing/eslint-config",
+        "@fadeldeveloper/eslint-config": "github:fadeldeveloper/eslint-config",
         "@types/got": "^9.6.11",
         "@types/jest": "^27.5.1",
         "@types/node": "^16.0.0",
