@@ -1,10 +1,10 @@
 {
-    "name": "@fadeldeveloper/Baileys",
-    "version": "2.0.3",
-    "description": "WhatsApp API Modification By F",
+    "name": "@fadelsm/baileys",
+    "version": "7.0.2",
+    "description": "WhatsApp API Modification By FadelSM",
     "keywords": [
         "whatsapp",
-        "psycho",
+        "psycho-bot",
         "baileys",
         "whatsapp-web",
         "whatsapp-chat",
@@ -12,12 +12,12 @@
         "botwa",
         "fadelsm"
     ],
-    "homepage": "https://www.npmjs.com/package/@FadelSM/Baileys",
+    "homepage": "https://www.npmjs.com/package/@fadelsm/baileys",
     "repository": {
-        "url": "https://www.npmjs.com/package/@FadelSM/Baileys"
+        "url": "https://www.npmjs.com/package/@fadelsm/baileys"
     },
     "license": "MIT",
-    "author": "FadelSM",
+    "author": "FlopeK",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "files": [
@@ -52,7 +52,7 @@
         "futoin-hkdf": "^1.5.1",
         "libphonenumber-js": "^1.10.20",
         "lodash": "^4.17.21",
-        "libsignal": "npm:@fadeldev/libsignal-node",
+        "libsignal": "npm:@fadelsm/libsignal-node",
         "music-metadata": "^7.12.3",
         "node-cache": "^5.1.2",
         "node-fetch": "^2.6.1",
@@ -62,7 +62,7 @@
         "ws": "^8.13.0"
     },
     "devDependencies": {
-        "@fadeldeveloper/eslint-config": "github:fadeldeveloper/eslint-config",
+        "@adiwajshing/eslint-config": "github:adiwajshing/eslint-config",
         "@types/got": "^9.6.11",
         "@types/jest": "^27.5.1",
         "@types/node": "^16.0.0",
@@ -80,7 +80,7 @@
         "ts-jest": "^27.0.3",
         "ts-node": "^10.8.1",
         "typedoc": "^0.24.7",
-        "typescript": "^4.6.4", 
+        "typescript": "^4.6.4",
         "json": "^11.0.0"
     },
     "peerDependencies": {
@@ -106,5 +106,8 @@
     "packageManager": "yarn@1.22.19",
     "engines": {
         "node": ">=20.0.0"
+    },
+    "directories": {
+        "lib": "lib"
     }
 }

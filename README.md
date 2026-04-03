@@ -1,488 +1,393 @@
-
-``` 
-Modified Baileys @FadelSM
-``` 
-
-# WhatsApp Baileys
+# WhatsApp Baileys FadelSM
 
 <p align="center">
-  <img src="https://h.top4top.io/p_35995wdvx1.jpg" alt="Thumbnail" />
+  <img src="https://g.top4top.io/p_3676rfdq11.jpg" alt="Thumbnail" />
 </p>
 
-WhatsApp Baileys adalah library open‑source yang dirancang untuk membantu developer membangun solusi otomatisasi dan integrasi dengan WhatsApp secara efisien dan langsung. Menggunakan teknologi webclient.t tanpa memerlukan browser, library ini mendukung berbagai fitur seperti manajemen pesan, penanganan chat, administrasi grup, serta pesan interaktif dan tombol aksi untuk pengalaman pengguna yang lebih dinamis.
+WhatsApp Baileys is an open-source library designed to help developers build automation solutions and integrations with WhatsApp efficiently and directly. Using websocket technology without the need for a browser, this library supports a wide range of features such as message management, chat handling, group administration, as well as interactive messages and action buttons for a more dynamic user experience.
 
-Aktif dikembangkan dan dipelihara, baileys terus menerima pembaruan untuk meningkatkan stabilitas dan performa. Salah satu fokus utamanya adalah menyempurnakan proses pairing dan autentikasi agar lebih stabil dan aman. Fitur pairing dapat dikustomisasi dengan kode buatan sendiri, membuat proses lebih andal dan tidak mudah terganggu.
+Actively developed and maintained, baileys continuously receives updates to enhance stability and performance. One of the main focuses is to improve the pairing and authentication processes to be more stable and secure. Pairing features can be customized with your own codes, making the process more reliable and less prone to interruptions.
 
-Library ini sangat cocok untuk membangun bot bisnis, sistem otomatisasi chat, solusi customer service, dan berbagai aplikasi otomatisasi komunikasi lainnya yang membutuhkan stabilitas tinggi dan fitur lengkap. Dengan desain ringan dan modular, baileys mudah diintegrasikan ke berbagai sistem dan platform.
-
----
-
-### Fitur Utama dan Keunggulan
-
-- Mendukung proses pairing otomatis dan kustom
-- Memperbaiki masalah pairing sebelumnya yang sering menyebabkan gagal atau disconnect
-- Mendukung pesan interaktif, tombol aksi, dan menu dinamis
-- Manajemen sesi otomatis yang efisien dan andal
-- Kompatibel dengan fitur multi-device terbaru WhatsApp
-- Ringan, stabil, dan mudah diintegrasikan ke berbagai sistem
-- Cocok untuk mengembangkan bot, otomatisasi, dan solusi komunikasi lengkap
-- Dokumentasi dan contoh kode yang lengkap untuk memudahkan pengembangan
+This library is highly suitable for building business bots, chat automation systems, customer service solutions, and various other communication automation applications that require high stability and comprehensive features. With a lightweight and modular design, baileys is easy to integrate into different systems and platforms.
 
 ---
 
-## Memulai
+### Main Features and Advantages
 
-Mulailah dengan menginstal library melalui package manager pilihan Anda, lalu ikuti panduan konfigurasi yang tersedia. Anda juga dapat menggunakan contoh kode yang sudah disediakan untuk memahami cara kerja fitur-fitur tersebut. Gunakan penyimpanan sesi dan fitur pesan interaktif untuk membangun solusi lengkap dan stabil sesuai kebutuhan bisnis atau proyek Anda.
+- Supports automatic and custom pairing processes
+- Fixes previous pairing issues that often caused failures or disconnections
+- Supports interactive messages, action buttons, and dynamic menus
+- Efficient automatic session management for reliable operation
+- Compatible with the latest multi-device features from WhatsApp
+- Lightweight, stable, and easy to integrate into various systems
+- Suitable for developing bots, automation, and complete communication solutions
+- Comprehensive documentation and example codes to facilitate development
 
 ---
 
-## Dokumentasi SendMessage
+## Getting Started
 
-### Order Message
+Begin by installing the library via your preferred package manager, then follow the provided configuration guide. You can also utilize the ready-made example codes to understand how the features work. Use session storage and interactive messaging features to build complete, stable solutions tailored to your business or project needs.
+
+---
+
+## Add Function ( Simple code )
+
+### Check ID Channel
+Get ID channel 
 
 ```javascript
-await client.sendMessage(groupId, {
-orderMessage: {
-orderId: "7778",
-thumbnail: await (await fetch("URL IMG")).buffer(),
-itemCount: 1000,
-status: "INQUIRY",
-surface: "CATALOG",
-message: "fdl kimochi",
-orderTitle: "kyah",
-sellerJid: "0@s.whatsapp.net",
-token: Buffer.from("777777"),
-totalAmount1000: 1000,
-currencyCode: "IDR",
-messageVersion: 2
-}
-}, { quoted: m });
+await sock.newsletterId(url)
 ```
 
-### Review And Pay Message 
+### Check banned number
+You can see the status of blocked numbers here 
 
 ```javascript
-await client.sendMessage(m.chat, {
-nativeFlowMessage: {
-buttons: [
-{
-name: "review_and_pay",
-buttonParamsJson: JSON.stringify({
-currency: "IDR",
-total_amount: { value: 100, offset: 100 },
-reference_id: "FADEL-DEV",
-type: "fadel",
-payment_status: "ganteng",
-payment_timestamp: Date.now(),
-order: {
-status: "completed",
-subtotal: { value: 100, offset: 100 },
-order_type: "PAYMENT_REQUEST",
-items: [
-{
-retailer_id: "item-" + Math.floor(Math.random() * 1e9),
-name: teks,
-amount: { value: 100, offset: 100 },
-quantity: 1
-}
-]
-},
-additional_note: "fadel gntng bet jir",
-native_payment_methods: "",
-share_payment_status: true
-})
-}
-]
-}
-}
-}, { quoted: m })
-```
-### Tag Status Grup Teks
-
-```javascript
-await client.sendMessage(groupId, {
-groupStatusMessage: {
-text: "hello world"
-}
-});
+await sock.checkWhatsApp(target)
 ```
 
-### Tag Status Grup Gambar
+---
+
+## SendMessage Documentation
+
+### Status Group Message V2
+Send group status with version 2 
 
 ```javascript
-const quoted = m.quoted ? m.quoted : m;
-const mime = (quoted.msg || quoted).mimetype || "";
-const caption = m.body.replace(/^\.swgrup\s*/i, "").trim();
-const jid = m.chat;
-if (/image/.test(mime)) {
-const buffer = await quoted.download();
-await client.sendMessage(groupId, {
-groupStatusMessage: {
-image: buffer,
-caption
-}
-});
-```
-
-### Tag Status Grup Video
-
-```javascript
-const quoted = m.quoted ? m.quoted : m;
-const mime = (quoted.msg || quoted).mimetype || "";
-const caption = m.body.replace(/^\.swgrup\s*/i, "").trim();
-const jid = m.chat;
-if (/video/.test(mime)) {
-const buffer = await quoted.download();
-await client.sendMessage(groupId, {
-groupStatusMessage: {
-video: buffer,
-caption
-}
-});
-```
-
-### Tag Status Grup Audio
-
-```javascript
-const quoted = m.quoted ? m.quoted : m;
-const mime = (quoted.msg || quoted).mimetype || "";
-const caption = m.body.replace(/^\.swgrup\s*/i, "").trim();
-const jid = m.chat;
-if (/audio/.test(mime)) {
-const buffer = await quoted.download();
-await client.sendMessage(groupId, {
-groupStatusMessage: {
-audio: buffer,
-}
+await sock.sendMessage(target, {
+     groupStatusMessage: {
+          text: "Hello World"
+     }
 });
 ```
 
 ### Album Message (Multiple Images)
-Mengirim banyak gambar dalam satu pesan album:
+Send multiple images in a single album message:
 
 ```javascript
-await client.sendMessage(m.chat, {
-albumMessage: [
-{ image: omak, caption: "Foto pertama" },
-{ image: { url: "URL IMAGE" }, caption: "Foto kedua" }
-]
+await sock.sendMessage(target, { 
+    albumMessage: [
+        { image: cihuy, caption: "Foto pertama" },
+        { image: { url: "URL IMAGE" }, caption: "Foto kedua" }
+    ] 
 }, { quoted: m });
 ```
 
 ### Event Message
-Membuat dan mengirim undangan event WhatsApp:
+Create and send WhatsApp event invitations:
 
 ```javascript
-await client.sendMessage(m.chat, {
-eventMessage: {
-isCanceled: false,
-name: "Hello World",
-description: "ravage native",
-location: {
-degreesLatitude: 0,
-degreesLongitude: 0,
-name: "rowrrrr"
-},
-joinLink: "https://call.whatsapp.com/video/FadelSM",
-startTime: "1763019000",
-endTime: "1763026200",
-extraGuestsAllowed: false
-}
+await sock.sendMessage(target, { 
+    eventMessage: { 
+        isCanceled: false, 
+        name: "Hello World", 
+        description: "fadel native", 
+        location: { 
+            degreesLatitude: 0, 
+            degreesLongitude: 0, 
+            name: "rowrrrr" 
+        }, 
+        joinLink: "https://call.whatsapp.com/video/fadelsm", 
+        startTime: "1763019000", 
+        endTime: "1763026200", 
+        extraGuestsAllowed: false 
+    } 
 }, { quoted: m });
 ```
 
 ### Poll Result Message
-Menampilkan hasil polling beserta jumlah vote:
+Display poll results with vote counts:
 
 ```javascript
-await client.sendMessage(m.chat, {
-pollResultMessage: {
-name: "Hello World",
-pollVotes: [
-{
-optionName: "TEST 1",
-optionVoteCount: "112233"
-},
-{
-optionName: "TEST 2",
-optionVoteCount: "1"
-}
-]
-}
+await sock.sendMessage(target, { 
+    pollResultMessage: { 
+        name: "Hello World", 
+        pollVotes: [
+            {
+                optionName: "TEST 1",
+                optionVoteCount: "112233"
+            },
+            {
+                optionName: "TEST 2",
+                optionVoteCount: "1"
+            }
+        ] 
+    } 
 }, { quoted: m });
 ```
 
 ### Simple Interactive Message
-Mengirim pesan interaktif dasar dengan tombol salin:
+Send basic interactive messages with copy button functionality:
 
 ```javascript
-await client.sendMessage(m.chat, {
-interactiveMessage: {
-header: "Hello World",
-title: "Hello World",
-footer: "telegram: @FADELSM",
-buttons: [
-{
-name: "cta_copy",
-buttonParamsJson: JSON.stringify({
-display_text: "copy code",
-id: "123456789",
-copy_code: "ABC123XYZ"
-})
-}
-]
-}
+await sock.sendMessage(target, {
+    interactiveMessage: {
+        header: "Hello World",
+        title: "Hello World",
+        footer: "telegram: @shidqiiahmad ",
+        buttons: [
+            {
+                name: "cta_copy",
+                buttonParamsJson: JSON.stringify({
+                    display_text: "copy code",
+                    id: "123456789",              
+                    copy_code: "ABC123XYZ"
+                })
+            }
+        ]
+    }
 }, { quoted: m });
 ```
 
-### Interactive Message dengan Native Flow
-Mengirim pesan interaktif dengan tombol dan fitur native flow:
+### Interactive Message with Native Flow
+Send interactive messages with buttons, copy actions, and native flow features:
 
 ```javascript
-await client.sendMessage(m.chat, {
-interactiveMessage: {
-header: "Hello World",
-title: "Hello World",
-footer: "telegram: @FADELSM",
-image: { url: "https://example.com/image.jpg" },
-nativeFlowMessage: {
-messageParamsJson: JSON.stringify({
-limited_time_offer: {
-text: "idk hummmm?",
-url: "https://t.me/FADELSM",
-copy_code: "psycho",
-expiration_time: Date.now() * 999
-},
-bottom_sheet: {
-in_thread_buttons_limit: 2,
-divider_indices: [1, 2, 3, 4, 5, 999],
-list_title: "psycho native",
-button_title: "psycho native"
-},
-tap_target_configuration: {
-title: " X ",
-description: "bomboclard",
-canonical_url: "https://t.me/FADELSM",
-domain: "shop.example.com",
-button_index: 0
-}
-}),
-buttons: [
-{
-name: "single_select",
-buttonParamsJson: JSON.stringify({
-has_multiple_buttons: true
-})
-},
-{
-name: "call_permission_request",
-buttonParamsJson: JSON.stringify({
-has_multiple_buttons: true
-})
-},
-{
-name: "single_select",
-buttonParamsJson: JSON.stringify({
-title: "Hello World",
-sections: [
-{
-title: "title",
-highlight_label: "label",
-rows: [
-{
-title: "@FadelSM",
-description: "love you",
-id: "row_2"
-}
-]
-}
-],
-has_multiple_buttons: true
-})
-},
-{
-name: "cta_copy",
-buttonParamsJson: JSON.stringify({
-display_text: "copy code",
-id: "123456789",
-copy_code: "ABC123XYZ"
-})
-}
-]
-}
-}
+await sock.sendMessage(target, {    
+    interactiveMessage: {      
+        header: "Hello World",
+        title: "Hello World",      
+        footer: "telegram: @shidqiiahmad",      
+        image: { url: "https://example.com/image.jpg" },      
+        nativeFlowMessage: {        
+            messageParamsJson: JSON.stringify({          
+                limited_time_offer: {            
+                    text: "idk hummmm?",            
+                    url: "https://t.me/shidqiiahmad",            
+                    copy_code: "fadel",            
+                    expiration_time: Date.now() * 999          
+                },          
+                bottom_sheet: {            
+                    in_thread_buttons_limit: 2,            
+                    divider_indices: [1, 2, 3, 4, 5, 999],            
+                    list_title: "fadel native",            
+                    button_title: "fadel native"          
+                },          
+                tap_target_configuration: {            
+                    title: " X ",            
+                    description: "bomboclard",            
+                    canonical_url: "https://t.me/shidqiiahmad",            
+                    domain: "shop.example.com",            
+                    button_index: 0          
+                }        
+            }),        
+            buttons: [          
+                {            
+                    name: "single_select",            
+                    buttonParamsJson: JSON.stringify({              
+                        has_multiple_buttons: true            
+                    })          
+                },          
+                {            
+                    name: "call_permission_request",            
+                    buttonParamsJson: JSON.stringify({              
+                        has_multiple_buttons: true            
+                    })          
+                },          
+                {            
+                    name: "single_select",            
+                    buttonParamsJson: JSON.stringify({              
+                        title: "Hello World",              
+                        sections: [                
+                            {                  
+                                title: "title",                  
+                                highlight_label: "label",                  
+                                rows: [                    
+                                    {                      
+                                        title: "@shidqiiahmad",                      
+                                        description: "love you",                      
+                                        id: "row_2"                    
+                                    }                  
+                                ]                
+                            }              
+                        ],              
+                        has_multiple_buttons: true            
+                    })          
+                },          
+                {            
+                    name: "cta_copy",            
+                    buttonParamsJson: JSON.stringify({              
+                        display_text: "copy code",              
+                        id: "123456789",              
+                        copy_code: "ABC123XYZ"            
+                    })          
+                }        
+            ]      
+        }    
+    }  
 }, { quoted: m });
 ```
 
-### Interactive Message dengan Thumbnail
-Mengirim pesan interaktif dengan thumbnail dan tombol salin:
+### Interactive Message with Thumbnail
+Send interactive messages with thumbnail image and copy button:
 
 ```javascript
-await client.sendMessage(m.chat, {
-interactiveMessage: {
-header: "Hello World",
-title: "Hello World",
-footer: "telegram: @FADELSM",
-image: { url: "https://example.com/image.jpg" },
-buttons: [
-{
-name: "cta_copy",
-buttonParamsJson: JSON.stringify({
-display_text: "copy code",
-id: "123456789",
-copy_code: "ABC123XYZ"
-})
-}
-]
-}
+await sock.sendMessage(target, {
+    interactiveMessage: {
+        header: "Hello World",
+        title: "Hello World",
+        footer: "telegram: @shidqiiahmad",
+        image: { url: "https://example.com/image.jpg" },
+        buttons: [
+            {
+                name: "cta_copy",
+                buttonParamsJson: JSON.stringify({
+                    display_text: "copy code",
+                    id: "123456789",
+                    copy_code: "ABC123XYZ"
+                })
+            }
+        ]
+    }
 }, { quoted: m });
 ```
 
 ### Product Message
-Mengirim pesan katalog produk dengan tombol dan info merchant:
+Send product catalog messages with buttons and merchant information:
 
 ```javascript
-await client.sendMessage(m.chat, {
-productMessage: {
-title: "Produk Contoh",
-description: "Ini adalah deskripsi produk",
-thumbnail: { url: "https://example.com/image.jpg" },
-productId: "PROD001",
-retailerId: "RETAIL001",
-url: "https://example.com/product",
-body: "Detail produk",
-footer: "Harga spesial",
-priceAmount1000: 50000,
-currencyCode: "USD",
-buttons: [
-{
-name: "cta_url",
-buttonParamsJson: JSON.stringify({
-display_text: "Beli Sekarang",
-url: "https://example.com/buy"
-})
-}
-]
-}
+await sock.sendMessage(target, {
+    productMessage: {
+        title: "Produk Contoh",
+        description: "Ini adalah deskripsi produk",
+        thumbnail: { url: "https://example.com/image.jpg" },
+        productId: "PROD001",
+        retailerId: "RETAIL001",
+        url: "https://example.com/product",
+        body: "Detail produk",
+        footer: "Harga spesial",
+        priceAmount1000: 50000,
+        currencyCode: "USD",
+        buttons: [
+            {
+                name: "cta_url",
+                buttonParamsJson: JSON.stringify({
+                    display_text: "Beli Sekarang",
+                    url: "https://example.com/buy"
+                })
+            }
+        ]
+    }
 }, { quoted: m });
 ```
 
-### Interactive Message dengan Document Buffer
-Mengirim pesan interaktif dengan dokumen dari buffer (file system) — **Catatan: Dokumen hanya mendukung buffer**:
+### Interactive Message with Document Buffer
+Send interactive messages with document from buffer (file system) - **Note: Documents only support buffer**:
 
 ```javascript
-await client.sendMessage(m.chat, {
-interactiveMessage: {
-header: "Hello World",
-title: "Hello World",
-footer: "telegram: @FADELSM",
-document: fs.readFileSync("./package.json"),
-mimetype: "application/pdf",
-fileName: "fadeldevv.pdf",
-jpegThumbnail: fs.readFileSync("./document.jpeg"),
-contextInfo: {
-mentionedJid: [m.chat],
-forwardingScore: 777,
-isForwarded: false
-},
-externalAdReply: {
-title: "Psycho",
-body: "",
-mediaType: 3,
-thumbnailUrl: "https://example.com/image.jpg",
-mediaUrl: " X ",
-sourceUrl: "https://t.me/FADELSM",
-showAdAttribution: true,
-renderLargerThumbnail: false
-},
-buttons: [
-{
-name: "cta_url",
-buttonParamsJson: JSON.stringify({
-display_text: "Telegram",
-url: "https://t.me/FADELSM",
-merchant_url: "https://t.me/FADELSM"
-})
-}
-]
-}
+await sock.sendMessage(target, {
+    interactiveMessage: {
+        header: "Hello World",
+        title: "Hello World",
+        footer: "telegram: @shidqiiahmad",
+        document: fs.readFileSync("./package.json"),
+        mimetype: "application/pdf",
+        fileName: "shidqiiahmad.pdf",
+        jpegThumbnail: fs.readFileSync("./document.jpeg"),
+        contextInfo: {
+            mentionedJid: [target],
+            forwardingScore: 777,
+            isForwarded: false
+        },
+        externalAdReply: {
+            title: "fadel Bot",
+            body: "anu team",
+            mediaType: 3,
+            thumbnailUrl: "https://example.com/image.jpg",
+            mediaUrl: " X ",
+            sourceUrl: "https://t.me/shidqiiahmad",
+            showAdAttribution: true,
+            renderLargerThumbnail: false         
+        },
+        buttons: [
+            {
+                name: "cta_url",
+                buttonParamsJson: JSON.stringify({
+                    display_text: "Telegram",
+                    url: "https://t.me/shidqiiahmad",
+                    merchant_url: "https://t.me/shidqiiahmad"
+                })
+            }
+        ]
+    }
 }, { quoted: m });
 ```
 
-### Interactive Message dengan Document Buffer (Simple)
-Mengirim pesan interaktif dengan dokumen dari buffer tanpa contextInfo dan externalAdReply — **Catatan: Dokumen hanya mendukung buffer**:
+### Interactive Message with Document Buffer (Simple)
+Send interactive messages with document from buffer (file system) without contextInfo and externalAdReply - **Note: Documents only support buffer**:
 
 ```javascript
-await client.sendMessage(m.chat, {
-interactiveMessage: {
-header: "Hello World",
-title: "Hello World",
-footer: "telegram: @FADELSM",
-document: fs.readFileSync("./package.json"),
-mimetype: "application/pdf",
-fileName: "fadeldevv.pdf",
-jpegThumbnail: fs.readFileSync("./document.jpeg"),
-buttons: [
-{
-name: "cta_url",
-buttonParamsJson: JSON.stringify({
-display_text: "Telegram",
-url: "https://t.me/FADELSM",
-merchant_url: "https://t.me/FADELSM"
-})
-}
-]
-}
+await sock.sendMessage(target, {
+    interactiveMessage: {
+        header: "Hello World",
+        title: "Hello World",
+        footer: "telegram: @shidqiiahmad",
+        document: fs.readFileSync("./package.json"),
+        mimetype: "application/pdf",
+        fileName: "shidqiiahmad.pdf",
+        jpegThumbnail: fs.readFileSync("./document.jpeg"),
+        buttons: [
+            {
+                name: "cta_url",
+                buttonParamsJson: JSON.stringify({
+                    display_text: "Telegram",
+                    url: "https://t.me/shidqiiahmad",
+                    merchant_url: "https://t.me/shidqiiahmad"
+                })
+            }
+        ]
+    }
 }, { quoted: m });
 ```
 
 ### Request Payment Message
-Mengirim pesan permintaan pembayaran dengan background dan sticker kustom:
+Send payment request messages with custom background and sticker:
 
 ```javascript
 let quotedType = m.quoted?.mtype || '';
 let quotedContent = JSON.stringify({ [quotedType]: m.quoted }, null, 2);
 
-await client.sendMessage(m.chat, {
-requestPaymentMessage: {
-currency: "IDR",
-amount: 10000000,
-from: m.sender,
-sticker: JSON.parse(quotedContent),
-background: {
-id: "100",
-fileLength: "0",
-width: 1000,
-height: 1000,
-mimetype: "image/webp",
-placeholderArgb: 0xFF00FFFF,
-textArgb: 0xFFFFFFFF,
-subtextArgb: 0xFFAA00FF
-}
-}
+await sock.sendMessage(target, {
+    requestPaymentMessage: {
+        currency: "IDR",
+        amount: 10000000,
+        from: m.sender,
+        sticker: JSON.parse(quotedContent),
+        background: {
+            id: "100",
+            fileLength: "0",
+            width: 1000,
+            height: 1000,
+            mimetype: "image/webp",
+            placeholderArgb: 0xFF00FFFF,
+            textArgb: 0xFFFFFFFF,     
+            subtextArgb: 0xFFAA00FF   
+        }
+    }
 }, { quoted: m });
 ```
 
 ---
 
-## Mengapa Memilih WhatsApp Baileys?
+## Why Choose WhatsApp Baileys?
 
-Karena library ini menawarkan stabilitas tinggi, fitur lengkap, dan proses pairing yang terus ditingkatkan. Ideal bagi developer yang ingin membuat solusi otomatisasi WhatsApp yang profesional dan aman. Dukungan terhadap fitur terbaru WhatsApp memastikan kompatibilitas dengan pembaruan platform.
-
----
-
-### Catatan Teknis
-
-- Mendukung pairing code kustom yang stabil dan aman
-- Memperbaiki masalah terkait pairing dan autentikasi pada versi sebelumnya
-- Fitur pesan interaktif dan tombol aksi untuk membuat menu dinamis
-- Manajemen sesi otomatis yang efisien untuk stabilitas jangka panjang
-- Kompatibel dengan fitur multi-device terbaru WhatsApp
-- Mudah diintegrasikan dan dikustomisasi sesuai kebutuhan
-- Sempurna untuk mengembangkan bot, otomatisasi layanan pelanggan, dan aplikasi komunikasi lainnya
+Because this library offers high stability, full features, and an actively improved pairing process. It is ideal for developers aiming to create professional and secure WhatsApp automation solutions. Support for the latest WhatsApp features ensures compatibility with platform updates.
 
 ---
 
-Untuk dokumentasi lengkap, panduan instalasi, dan contoh implementasi, silakan kunjungi repository resmi dan forum komunitas. Kami terus memperbarui dan meningkatkan library ini untuk memenuhi kebutuhan developer dan pengguna solusi otomatisasi WhatsApp modern.
+### Technical Notes
 
-**Terima kasih telah memilih WhatsApp Baileys sebagai solusi otomatisasi WhatsApp Anda!**
+- Supports custom pairing codes that are stable and secure
+- Fixes previous issues related to pairing and authentication
+- Features interactive messages and action buttons for dynamic menu creation
+- Automatic and efficient session management for long-term stability
+- Compatible with the latest multi-device features from WhatsApp
+- Easy to integrate and customize based on your needs
+- Perfect for developing bots, customer service automation, and other communication applications
+
+---
+
+For complete documentation, installation guides, and implementation examples, please visit the official repository and community forums. We continually update and improve this library to meet the needs of developers and users of modern WhatsApp automation solutions.
+
+**Thank you for choosing WhatsApp Baileys as your WhatsApp automation solution!**
