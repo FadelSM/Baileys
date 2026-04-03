@@ -1,7 +1,7 @@
 // dugong.d.ts
 import { proto } from '../../WAProto';
 
-declare namespace fadel {
+declare namespace kikyy {
     interface MediaUploadOptions {
         fileEncSha256?: Buffer;
         mediaType?: string;
@@ -190,65 +190,65 @@ declare namespace fadel {
     }
 }
 
-declare class fadel {
+declare class kikyy {
     constructor(
-        utils: fadel.Utils,
-        waUploadToServer: fadel.WAMediaUploadFunction,
+        utils: kikyy.Utils,
+        waUploadToServer: kikyy.WAMediaUploadFunction,
         relayMessageFn?: (jid: string, content: any, options?: any) => Promise<any>
     );
-
-    detectType(content: fadel.MessageContent): 'PAYMENT' | 'PRODUCT' | 'INTERACTIVE' | 'ALBUM' | 'EVENT' | 'POLL_RESULT' | 'GROUP_STORY' | null;
+    
+    detectType(content: kikyy.MessageContent): 'PAYMENT' | 'PRODUCT' | 'INTERACTIVE' | 'ALBUM' | 'EVENT' | 'POLL_RESULT' | 'GROUP_STORY' | null;
 
     handlePayment(
-        content: { requestPaymentMessage: fadel.PaymentMessage },
+        content: { requestPaymentMessage: kikyy.PaymentMessage },
         quoted?: proto.IWebMessageInfo
     ): Promise<{ requestPaymentMessage: proto.Message.RequestPaymentMessage }>;
 
     handleProduct(
-        content: { productMessage: fadel.ProductMessage },
+        content: { productMessage: kikyy.ProductMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<{ viewOnceMessage: proto.Message.ViewOnceMessage }>;
 
     handleInteractive(
-        content: { interactiveMessage: fadel.InteractiveMessage },
+        content: { interactiveMessage: kikyy.InteractiveMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<{ interactiveMessage: proto.Message.InteractiveMessage }>;
 
     handleAlbum(
-        content: { albumMessage: fadel.AlbumItem[] },
+        content: { albumMessage: kikyy.AlbumItem[] },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
 
     handleEvent(
-        content: { eventMessage: fadel.EventMessage },
+        content: { eventMessage: kikyy.EventMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
     
     handlePollResult(
-        content: { pollResultMessage: fadel.PollResultMessage },
+        content: { pollResultMessage: kikyy.PollResultMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
 
     handleGroupStory(
-        content: { groupStatusMessage: fadel.GroupStatusMessage },
+        content: { groupStatusMessage: kikyy.GroupStatusMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
 
     buildMessageContent(
         content: any,
-        opts?: fadel.WAMessageContentGenerationOptions
+        opts?: kikyy.WAMessageContentGenerationOptions
     ): Promise<any>;
 
-    utils: fadel.Utils;
+    utils: kikyy.Utils;
     relayMessage: (jid: string, content: any, options?: any) => Promise<any>;
-    waUploadToServer: fadel.WAMediaUploadFunction;
-    bail: fadel.BailUtils;
+    waUploadToServer: kikyy.WAMediaUploadFunction;
+    bail: kikyy.BailUtils;
 }
 
-export = fadel;
+export = kikyy;
